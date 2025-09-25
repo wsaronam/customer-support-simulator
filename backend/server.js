@@ -1,13 +1,14 @@
-import OpenAI from "openai";
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
+const OpenAI = require("openai");
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
 
 
 
 dotenv.config();
 const app = express();
 const port = 5000;
+console.log("Loaded API Key:", process.env.OPENAI_API_KEY);
 
 app.use(cors());
 app.use(express.json());
@@ -19,13 +20,18 @@ app.post("/api/respond", async (req, res) => {
         const {message} = req.body;
 
         const response = await client.chat.completions.create({
+            model: "gpt-4o-mini",
             messages: [
-                {role: "system", content: "You're simulating a helpful and polite customer support technician."}
+                { role: "system", content: "You're simulating a helpful and polite customer support technician." },
+                { role: "user", content: message },
             ],
         });
+
+        res.json({ reply: response.choices[0].message.content });
     }
     catch (err) {
-        console.error(error);
+        console.error(err);
+        res.status(500).json({ err: "Something went wrong" });
     }
 });
 

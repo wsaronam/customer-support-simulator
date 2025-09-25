@@ -22,10 +22,8 @@ function App() {
         >
           Learn React
         </a>
-      </header>
-      <body>
         <Chat />
-      </body>
+      </header>
     </div>
   );
 }

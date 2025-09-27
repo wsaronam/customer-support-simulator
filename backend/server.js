@@ -13,11 +13,23 @@ console.log("Loaded API Key:", process.env.OPENAI_API_KEY);
 app.use(cors());
 app.use(express.json());
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// sim mode simulates the OpenAI and doesn't actually use it
+const simMode = process.env.SIM_MODE === "true";
+
+let client;
+if (!simMode) {
+    client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+}
 
 app.post("/api/respond", async (req, res) => {
     try {
+
         const {message} = req.body;
+
+        // Sim Mode message reply
+        if (simMode) {
+            return res.json({ reply: `(SIM AI) Got your message: "${message}"`});
+        }
 
         const response = await client.chat.completions.create({
             model: "gpt-4o-mini",

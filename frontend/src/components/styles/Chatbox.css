@@ -1,0 +1,9 @@
+.chat-box {
+  height: 400px;
+  overflow-y: auto; /* scroll box */
+  padding: 10px;
+  background-color: #00146d;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

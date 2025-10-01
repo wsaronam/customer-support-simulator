@@ -36,24 +36,24 @@ function Chatbox() {
 
 
     return (
-        <div>
+        <div className="chat-container">
             <div className="chat-box">
                 {messages.map((msg, i) => (
-                    <div 
-                        key={i}>
+                    <div key={i} className={`message ${msg.role}`}>
                         <b>{msg.role}:</b> {msg.content}
                     </div>
                 ))}
                 <div ref={chatEndRef} />
             </div>
 
-            <div>
+            <div className="input-container">
                 <input
+                    className="chat-input"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Type your message..."
                 />
-                <button onClick={sendMessage}>Send</button>
+                <button className="chat-button" onClick={sendMessage}>Send</button>
             </div>
         </div>
     )

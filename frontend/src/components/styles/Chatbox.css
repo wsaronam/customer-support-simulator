@@ -1,5 +1,5 @@
 .chat-container {
-  width: 400px;
+  width: 600px;
   margin: 20px auto;
   display: flex;
   flex-direction: column;
@@ -15,6 +15,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  font-size: 18px;
 }
 
 .message.user {
@@ -23,7 +24,7 @@
   color: white;
   padding: 8px 12px;
   border-radius: 12px;
-  max-width: 70%;
+  max-width: 75%;
 }
 
 .message.assistant {
@@ -32,7 +33,7 @@
   color: black;
   padding: 8px 12px;
   border-radius: 12px;
-  max-width: 70%;
+  max-width: 75%;
 }
 
 .input-container {
@@ -46,6 +47,10 @@
   border: none;
   outline: none;
   border-radius: 0 0 0 8px;
+  min-height: 40px;
+  max-height: 120px;
+  resize: none;
+  overflow-y: auto;
 }
 
 .chat-button {

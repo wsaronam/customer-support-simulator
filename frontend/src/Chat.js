@@ -8,7 +8,6 @@ function Chat() {
     return (
         <div>
             <h1>Customer Support Simulator</h1>
-
             <Chatbox />
         </div>
     

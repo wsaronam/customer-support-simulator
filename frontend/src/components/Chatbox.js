@@ -32,6 +32,12 @@ function Chatbox() {
         }
 
         setInput("");
+        
+        // resets the textarea size after a message is sent
+        const textarea = document.querySelector(".chat-input");
+        if (textarea) {
+            textarea.style.height = "40px";
+        }
     }
 
 
@@ -47,10 +53,14 @@ function Chatbox() {
             </div>
 
             <div className="input-container">
-                <input
+                <textarea
                     className="chat-input"
                     value={input}
-                    onChange={(e) => setInput(e.target.value)}
+                    onChange={(e) => {
+                        setInput(e.target.value);
+                        e.target.style.height = "auto";
+                        e.target.style.height = e.target.scrollHeight + "px";
+                    }}
                     placeholder="Type your message..."
                 />
                 <button className="chat-button" onClick={sendMessage}>Send</button>

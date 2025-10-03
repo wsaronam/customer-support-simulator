@@ -9,6 +9,7 @@ import "./styles/Chatbox.css";
 function Chatbox() {
     const [input, setInput] = useState("");
     const [messages, setMessages] = useState([]);
+    const [loading, setLoading] = useState(false);
     const chatEndRef = useRef(null);
 
     // auto scrolls the chatbox to the bottom when the messages update
@@ -22,6 +23,7 @@ function Chatbox() {
 
         const newMessages = [...messages, { role: "user", content: input }];
         setMessages(newMessages);
+        setLoading(true);
 
         try {
             const res = await axios.post("http://localhost:5000/api/respond", { message: input });
@@ -29,6 +31,9 @@ function Chatbox() {
         }
         catch (err) {
             console.error(err);
+        }
+        finally {
+            setLoading(false);
         }
 
         setInput("");
@@ -49,6 +54,11 @@ function Chatbox() {
                         <b>{msg.role}:</b> {msg.content}
                     </div>
                 ))}
+                {loading && (
+                    <div className="message-loading">
+                        AI is currently typing<span className="dots">...</span>
+                    </div>
+                )}
                 <div ref={chatEndRef} />
             </div>
 
@@ -60,6 +70,12 @@ function Chatbox() {
                         setInput(e.target.value);
                         e.target.style.height = "auto";
                         e.target.style.height = e.target.scrollHeight + "px";
+                    }}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter" && !e.shiftKey) {
+                            e.preventDefault(); // stop newline
+                            sendMessage();      // send message instead
+                        }
                     }}
                     placeholder="Type your message..."
                 />

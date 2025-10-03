@@ -61,3 +61,20 @@
   cursor: pointer;
   border-radius: 0 0 8px 0;
 }
+
+.message-loading {
+  font-style: italic;
+  color: #636363;
+}
+
+.dots::after {
+  content: "";
+  animation: dots 1.5s steps(3, end) infinite;
+}
+
+@keyframes dots {
+  0% { content: ""; }
+  33% { content: "."; }
+  66% { content: ".."; }
+  100% { content: "..."; }
+}

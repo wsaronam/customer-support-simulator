@@ -23,19 +23,24 @@ if (!simMode) {
 
 app.post("/api/respond", async (req, res) => {
     try {
-
-        const {message} = req.body;
+        const {messages} = req.body;
+        const chatMessages = messages.map((msg) => ({
+            role: msg.role,
+            content: msg.content,
+        }));
 
         // Sim Mode message reply
         if (simMode) {
-            return res.json({ reply: `(SIM AI) Got your message: "${message}"`});
+            const lastMessage = messages[messages.length - 1]?.content || "";
+            return res.json({ reply: `(SIM AI) Got your message: "${lastMessage}"`});
         }
 
         const response = await client.chat.completions.create({
             model: "gpt-4o-mini",
             messages: [
                 { role: "system", content: "You're simulating a helpful and polite customer support technician." },
-                { role: "user", content: message },
+                { role: "user", content: messages },
+                ...chatMessages,
             ],
         });
 

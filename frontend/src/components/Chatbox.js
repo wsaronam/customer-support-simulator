@@ -8,9 +8,18 @@ import "./styles/Chatbox.css";
 
 function Chatbox() {
     const [input, setInput] = useState("");
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState(() => {
+        const saved = localStorage.getItem("chatMessages");
+        return saved ? JSON.parse(saved) : [];
+    });
     const [loading, setLoading] = useState(false);
     const chatEndRef = useRef(null);
+
+
+    // saves chat message history
+    useEffect(() => {
+        localStorage.setItem("chatMessages", JSON.stringify(messages));
+    }, [messages]);
 
     // auto scrolls the chatbox to the bottom when the messages update
     useEffect(() => {
@@ -26,7 +35,7 @@ function Chatbox() {
         setLoading(true);
 
         try {
-            const res = await axios.post("http://localhost:5000/api/respond", { message: input });
+            const res = await axios.post("http://localhost:5000/api/respond", { messages: newMessages });
             setMessages([...newMessages, { role: "assistant", content: res.data.reply }]);
         }
         catch (err) {

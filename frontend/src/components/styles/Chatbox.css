@@ -18,22 +18,26 @@
   font-size: 18px;
 }
 
+.message {
+  text-align: left;
+  display: inline-block;
+  max-width: 80%;
+  padding: 8px 12px;
+  border-radius: 12px;
+}
+
 .message.user {
   align-self: flex-end;
   background: #0078ff;
   color: white;
   padding: 8px 12px;
   border-radius: 12px;
-  max-width: 75%;
 }
 
 .message.assistant {
   align-self: flex-start;
   background: #e5e5ea;
   color: black;
-  padding: 8px 12px;
-  border-radius: 12px;
-  max-width: 75%;
 }
 
 .input-container {
@@ -60,6 +64,17 @@
   color: white;
   cursor: pointer;
   border-radius: 0 0 8px 0;
+}
+
+.clear-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 14px;
 }
 
 .message-loading {

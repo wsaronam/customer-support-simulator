@@ -54,6 +54,11 @@ function Chatbox() {
         }
     }
 
+    const clearChat = () => {
+        setMessages([]);
+        localStorage.removeItem("chatMessages");
+    }
+
 
     return (
         <div className="chat-container">
@@ -89,6 +94,7 @@ function Chatbox() {
                     placeholder="Type your message..."
                 />
                 <button className="chat-button" onClick={sendMessage}>Send</button>
+                <button className="clear-button" onClick={clearChat}>Clear</button>
             </div>
         </div>
     )
